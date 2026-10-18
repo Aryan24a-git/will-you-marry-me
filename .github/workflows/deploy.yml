@@ -4,7 +4,7 @@ name: Deploy to GitHub Pages
 # source directly (the old "Pages from branch: main /" setting) is exactly what
 # broke the site: the browser hit the un-bundled `import 'gsap'` and the film
 # never ran. This builds first, so gsap is bundled and every asset carries the
-# /happy-birthday-tree/ base path.
+# /will-you-marry-me/ base path.
 
 on:
   push:

@@ -54,7 +54,7 @@ npm run build
 npm run preview
 ```
 
-The GitHub Pages workflow builds the Vite output and deploys `dist/` on pushes to `main`.
+The GitHub Pages workflow builds the Vite output and deploys `dist/` on pushes to `main`. GitHub Pages must be enabled with **Source: GitHub Actions** in the repository settings. The Vite build uses `/will-you-marry-me/` on GitHub Actions and `/` everywhere else, including Vercel.
 
 ## Project Files
 
