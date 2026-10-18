@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Be My Forever ♥ — A Question From My Heart</title>
+  <meta name="description" content="A romantic proposal story: draw Cupid's bow, strike the heart, and watch our blooming future unfold into the question of a lifetime." />
+  <meta name="theme-color" content="#f7e7dc" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet" />
+
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="stylesheet" href="./birthday.css" />
+</head>
+<body>
+  <main class="scene">
+
+    <!-- The tree world (Act 4). One canvas; it stays transparent until the
+         intro hands off, then it draws its own warm sky + blossom tree. -->
+    <canvas id="tree" class="tree" aria-label="A blossom tree grows and blooms into a heart made of petals" role="img"></canvas>
+
+    <!-- ACT 1 — THE INVITATION ------------------------------------------------
+         Cupid's bow and beating heart inviting her to take the shot -->
+    <section class="hero" id="hero" aria-label="Draw the bow to unlock my heart">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__motes" id="motes" aria-hidden="true"></div>
+
+      <p class="hero__eyebrow" id="eyebrow">every beat of my heart belongs to you&hellip;</p>
+
+      <!-- THE TARGET — the heart the arrow flies to (GSAP animates .target) -->
+      <div class="targetWrap" aria-hidden="true">
+        <div class="target" id="target">
+          <span class="heart__glow" aria-hidden="true"></span>
+          <span class="target__heart" id="targetHeart">
+            <svg class="heart__svg" viewBox="0 0 100 92" aria-hidden="true">
+              <defs>
+                <radialGradient id="hg" cx="38%" cy="30%" r="80%">
+                  <stop offset="0%"  stop-color="#ffd9e4" />
+                  <stop offset="42%" stop-color="#ff6f97" />
+                  <stop offset="82%" stop-color="#d81e57" />
+                  <stop offset="100%" stop-color="#9d0f3e" />
+                </radialGradient>
+                <linearGradient id="hsheen" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%"  stop-color="rgba(255,255,255,.85)" />
+                  <stop offset="34%" stop-color="rgba(255,255,255,0)" />
+                </linearGradient>
+              </defs>
+              <path d="M50 86.5C26 68 10.5 53.6 10.5 34.6 10.5 20.4 21 11 33.2 11c8.6 0 14.2 4.7 16.8 11.4C52.6 15.7 58.2 11 66.8 11 79 11 89.5 20.4 89.5 34.6 89.5 53.6 74 68 50 86.5Z" fill="url(#hg)" />
+              <path d="M50 86.5C26 68 10.5 53.6 10.5 34.6 10.5 20.4 21 11 33.2 11c8.6 0 14.2 4.7 16.8 11.4C52.6 15.7 58.2 11 66.8 11 79 11 89.5 20.4 89.5 34.6 89.5 53.6 74 68 50 86.5Z" fill="url(#hsheen)" opacity=".7" />
+              <ellipse cx="34" cy="30" rx="8.5" ry="5.4" fill="#fff" opacity=".72" style="mix-blend-mode:screen" />
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- THE BOW + ARROW -->
+      <div class="archery" id="archery" role="button" tabindex="0"
+           aria-label="Draw the bow and release to send Cupid's arrow into my heart">
+
+          <!-- aim line, inside the rig so it points straight at the heart -->
+          <div class="aim" id="aim" aria-hidden="true"></div>
+
+          <!-- recurve bow -->
+          <svg class="bow" id="bow" viewBox="0 0 460 300" aria-hidden="true">
+            <defs>
+              <linearGradient id="limb" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0"   stop-color="#4a2a1a" />
+                <stop offset=".18" stop-color="#6b3f24" />
+                <stop offset=".5"  stop-color="#8a5127" />
+                <stop offset=".82" stop-color="#6b3f24" />
+                <stop offset="1"   stop-color="#4a2a1a" />
+              </linearGradient>
+              <linearGradient id="limbHi" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="rgba(255,214,160,.8)" />
+                <stop offset="1" stop-color="rgba(255,214,160,0)" />
+              </linearGradient>
+              <linearGradient id="grip" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#2a1a10" />
+                <stop offset=".5" stop-color="#5a3822" />
+                <stop offset="1" stop-color="#2a1a10" />
+              </linearGradient>
+            </defs>
+            <path class="bow__limb" d="M34 96 C 118 168, 168 240, 230 252 C 292 240, 342 168, 426 96"
+                  fill="none" stroke="url(#limb)" stroke-width="13" stroke-linecap="round" />
+            <path class="bow__limbHi" d="M34 96 C 118 168, 168 240, 230 252 C 292 240, 342 168, 426 96"
+                  fill="none" stroke="url(#limbHi)" stroke-width="3" stroke-linecap="round" opacity=".7" />
+            <path d="M34 96 C 22 82, 26 70, 40 66" fill="none" stroke="url(#limb)" stroke-width="8" stroke-linecap="round" />
+            <path d="M426 96 C 438 82, 434 70, 420 66" fill="none" stroke="url(#limb)" stroke-width="8" stroke-linecap="round" />
+            <rect x="216" y="206" width="28" height="70" rx="9" fill="url(#grip)" />
+            <path d="M219 220h22 M219 236h22 M219 252h22" stroke="rgba(0,0,0,.35)" stroke-width="2" />
+            <line class="bow__str" id="strL" x1="40" y1="70" x2="230" y2="96" stroke="#9a8068" stroke-width="2.2" stroke-linecap="round" />
+            <line class="bow__str" id="strR" x1="420" y1="70" x2="230" y2="96" stroke="#9a8068" stroke-width="2.2" stroke-linecap="round" />
+            <circle class="bow__serving" id="serving" cx="230" cy="96" r="4.5" fill="#6f5137" />
+          </svg>
+
+          <!-- the arrow: winged golden heart tip -->
+          <svg class="arrow" id="arrow" viewBox="0 0 64 220" aria-hidden="true">
+            <defs>
+              <linearGradient id="shaft" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#4a2c14" />
+                <stop offset=".5" stop-color="#8a5a2c" />
+                <stop offset="1" stop-color="#3e2410" />
+              </linearGradient>
+              <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffe38c" />
+                <stop offset=".45" stop-color="#f4a626" />
+                <stop offset="1" stop-color="#a85f0e" />
+              </linearGradient>
+              <linearGradient id="feath" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ff7f9c" />
+                <stop offset=".5" stop-color="#e6396a" />
+                <stop offset="1" stop-color="#a8154a" />
+              </linearGradient>
+              <linearGradient id="wing" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffffff" />
+                <stop offset="1" stop-color="#ffe0c4" />
+              </linearGradient>
+            </defs>
+            <rect x="29.4" y="30" width="5.2" height="168" rx="2.6" fill="url(#shaft)" />
+            <g class="arrow__wings">
+              <path class="wingL" d="M31 30 C 10 16, 2 20, 4 34 C 12 30, 20 32, 31 40 Z" fill="url(#wing)" stroke="rgba(196,132,58,.72)" stroke-width="1.2"/>
+              <path class="wingR" d="M33 30 C 54 16, 62 20, 60 34 C 52 30, 44 32, 33 40 Z" fill="url(#wing)" stroke="rgba(196,132,58,.72)" stroke-width="1.2"/>
+            </g>
+            <path class="arrow__head" d="M32 12 C 30 7, 22 6.5, 21.5 13 C 21 18, 27 22, 32 27 C 37 22, 43 18, 42.5 13 C 42 6.5, 34 7, 32 12 Z" fill="url(#gold)" stroke="#a5701a" stroke-width=".8" />
+            <ellipse cx="27" cy="13" rx="2.6" ry="1.7" fill="#fff" opacity=".8" style="mix-blend-mode:screen" />
+            <g class="arrow__fletch">
+              <path d="M32 150 C 16 156, 10 178, 15 200 C 24 194, 30 184, 32 176 Z" fill="url(#feath)" />
+              <path d="M32 150 C 48 156, 54 178, 49 200 C 40 194, 34 184, 32 176 Z" fill="url(#feath)" opacity=".92" />
+              <path d="M28 160l4 3 M26 170l6 3 M25 180l7 3" stroke="rgba(130,12,48,.45)" stroke-width="1" />
+              <path d="M36 160l-4 3 M38 170l-6 3 M39 180l-7 3" stroke="rgba(130,12,48,.45)" stroke-width="1" />
+            </g>
+            <path d="M29 200 L32 205 L35 200" fill="none" stroke="#c9a25a" stroke-width="2" stroke-linecap="round"/>
+            <circle id="tip" cx="32" cy="9" r="0.6" fill="none" />
+          </svg>
+      </div>
+
+      <p class="hero__hint" id="hint">pull &amp; release Cupid's arrow</p>
+    </section>
+
+    <!-- ACT 2 — THE FLOOD ----------------------------------------------------- -->
+    <div class="flood" id="flood" aria-hidden="true"></div>
+
+    <!-- ACT 3 — THE PROPOSAL CALL (kinetic type on the flood) ----------------- -->
+    <div class="field" id="field" aria-hidden="true">
+      <div class="blob blob--1"></div>
+      <div class="blob blob--2"></div>
+      <div class="blob blob--3"></div>
+      <div class="fgrid" id="fgrid"></div>
+      <div class="fvignette"></div>
+
+      <div class="camera" id="camera">
+        <p class="kEyebrow" id="kEyebrow">from this moment into eternity&hellip;</p>
+        <h2 class="headline" id="headline">
+          <span class="hl__line"><span class="mask"><span class="hl__word" id="wLine1">Be</span></span></span>
+          <span class="hl__line"><span class="mask"><span class="hl__word" id="wLine2">Mine</span></span></span>
+          <span class="hl__line hl__line--name"><span class="mask"><span class="hl__word hl__name" id="wLineName">Sweety</span></span></span>
+        </h2>
+        <svg class="uline" id="uline" viewBox="0 0 300 26" fill="none" aria-hidden="true">
+          <path class="uline__path" d="M8 16C56 7 132 4 178 6c30 1 78 5 114 12-40 3-108 4-176 3"
+                stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <p class="kSub" id="kSub">I found my forever in your smile</p>
+      </div>
+
+      <div class="bar bar--top" id="barTop"></div>
+      <div class="bar bar--bot" id="barBot"></div>
+    </div>
+
+    <!-- The gold light that bridges the rose wish into the dawn of the tree. -->
+    <div class="bloom" id="bloom" aria-hidden="true"></div>
+
+    <!-- ACT 4 — THE HAND-LETTERED PROPOSAL (over the tree) -------------------- -->
+    <div class="wish" id="wish" aria-hidden="true">
+      <p class="wish__eyebrow" id="wEyebrow">with every heartbeat of my life&hellip;</p>
+      <div class="wish__heroWrap"><h1 class="wish__hero" id="wHero">Marry Me?</h1></div>
+      <span class="wish__rule" id="wRule"></span>
+      <p class="wish__sub" id="wSub">will you be my lifelong partner, my love, my home?</p>
+      
+      <!-- Button to proceed to Act 5: The Grand Proposal Chamber -->
+      <button type="button" class="btn-next-chapter" id="btnToAct5">
+        <span>Step Into Our Next Chapter</span>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </button>
+    </div>
+
+    <!-- ACT 5 — THE GRAND PROPOSAL CHAMBER ------------------------------------ -->
+    <section class="scene-act act5-scene" id="act5Scene" aria-label="Will You Marry Me Proposal Chamber" hidden>
+      <div class="act5-backdrop">
+        <div class="act5-glow"></div>
+        <div class="act5-petals-bg" id="act5PetalsBg" aria-hidden="true"></div>
+      </div>
+
+      <div class="act5-card" id="act5Card">
+        <div class="ring-chamber">
+          <div class="ring-chamber__halo"></div>
+          <div class="ring-chamber__stars">&#10024;</div>
+          <svg class="ring-svg" viewBox="0 0 100 100" aria-hidden="true">
+            <defs>
+              <linearGradient id="bandGrad5" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#fff8dc" />
+                <stop offset="35%" stop-color="#f7cb6b" />
+                <stop offset="75%" stop-color="#cf9023" />
+                <stop offset="100%" stop-color="#ffe8a8" />
+              </linearGradient>
+              <radialGradient id="gemGrad5" cx="35%" cy="35%" r="65%">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="45%" stop-color="#e0f6ff" />
+                <stop offset="85%" stop-color="#8ce1ff" />
+                <stop offset="100%" stop-color="#3ba9f5" />
+              </radialGradient>
+            </defs>
+            <ellipse cx="50" cy="58" rx="30" ry="24" fill="none" stroke="url(#bandGrad5)" stroke-width="7" stroke-linecap="round" />
+            <ellipse cx="50" cy="58" rx="30" ry="24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.8" />
+            <path d="M43 32 L47 38 L53 38 L57 32 Z" fill="url(#bandGrad5)" />
+            <polygon points="50,15 64,28 50,41 36,28" fill="url(#gemGrad5)" stroke="#ffffff" stroke-width="1.2" />
+            <polygon points="50,15 57,28 50,41 43,28" fill="rgba(255,255,255,0.6)" />
+          </svg>
+        </div>
+
+        <p class="act5-eyebrow">A Question From The Depths Of My Soul</p>
+        <h2 class="act5-title">Will You Marry Me, <span class="act5-name">Sweety?</span></h2>
+        
+        <p class="act5-vow">
+          &ldquo;I promise to hold your hand through every season, to laugh with you in joy, to stand by you in sorrow, and to love you unconditionally every single day of my life.&rdquo;
+        </p>
+
+        <div class="act5-actions" id="act5Actions">
+          <button type="button" class="btn-proposal btn-yes" id="btnAct5Yes">
+            <span class="btn-heart">&#10084;</span> Yes, A Thousand Times Yes!
+          </button>
+          <button type="button" class="btn-proposal btn-no" id="btnAct5No">
+            No 😔
+          </button>
+        </div>
+
+        <!-- Celebratory State inside Act 5 after clicking Yes -->
+        <div class="act5-celebration" id="act5Celebration" hidden>
+          <div class="celebration-badge">&#128141; SHE SAID YES! &#128141;</div>
+          <img src="/gif/cute.gif" class="celebration-gif" alt="Celebration cute gif" />
+          <h3 class="celebration-title">Forever Starts Today!</h3>
+          <p class="celebration-text">My heart is complete. Let&rsquo;s look back at the beautiful story we are writing together.</p>
+          <button type="button" class="btn-next-chapter mt-4" id="btnToAct6">
+            <span>Walk Down Our Memory Lane</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 5 "NO" PLEADING MODAL (Inspired by proposal-site-main) ------------ -->
+    <div class="modal-plea" id="noPleaModal" role="dialog" aria-modal="true" aria-labelledby="modalPleaTitle" hidden>
+      <div class="modal-plea__backdrop" id="modalPleaBackdrop"></div>
+      <div class="modal-plea__dialog">
+        <div class="modal-plea__card">
+          <div class="modal-plea__gif-wrap">
+            <img id="modalPleaGif" src="/gif/please.gif" class="modal-plea__gif" alt="Pleading animation" />
+          </div>
+          <h3 class="modal-plea__title" id="modalPleaTitle">Wait... please rethink! 🥺</h3>
+          <p class="modal-plea__text" id="modalPleaText">This question took all the courage in my heart to ask... You need to open your heart, please?</p>
+          
+          <div class="modal-plea__buttons">
+            <button type="button" class="btn-proposal btn-yes" id="btnModalSayYes">
+              <span class="btn-heart">&#10084;</span> Okay, Let Me Say Yes! 💕
+            </button>
+            <button type="button" class="btn-proposal btn-plea-dodge" id="btnModalStillNo">
+              Still No 😢
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACT 6 — 3D INTERACTIVE MEMORY GALLERY --------------------------------- -->
+    <section class="scene-act act6-scene" id="act6Scene" aria-label="Our Memories In 3D" hidden>
+      <div class="act6-container">
+        <header class="act6-header">
+          <h2 class="act6-title">Moments That Stole My Heart</h2>
+          <p class="act6-sub">Every picture holds a heartbeat, every memory a smile</p>
+        </header>
+
+        <!-- 3D Carousel / Coverflow Showcase -->
+        <div class="carousel-3d-wrap">
+          <button type="button" class="carousel-nav-btn prev" id="carouselPrev" aria-label="Previous Memory">&#10094;</button>
+          
+          <div class="carousel-3d" id="carousel3D">
+            <!-- Card 1 -->
+            <div class="c3d-card" data-index="0">
+              <div class="c3d-frame">
+                <div class="c3d-img-box">
+                  <img src="/images/1.jpg" alt="Our sweet memory 1" class="c3d-img" />
+                </div>
+                <div class="c3d-info">
+                  <span class="c3d-tag">The Beginning</span>
+                  <h4 class="c3d-caption">When My World Stopped</h4>
+                  <p class="c3d-date">The moment I knew you were the one</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="c3d-card" data-index="1">
+              <div class="c3d-frame">
+                <div class="c3d-img-box">
+                  <img src="/images/2.jpg" alt="Our sweet memory 2" class="c3d-img" />
+                </div>
+                <div class="c3d-info">
+                  <span class="c3d-tag">Your Radiance</span>
+                  <h4 class="c3d-caption">That Golden Smile</h4>
+                  <p class="c3d-date">Brighter than a thousand stars</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="c3d-card" data-index="2">
+              <div class="c3d-frame">
+                <div class="c3d-img-box">
+                  <img src="/images/3.jpg" alt="Our sweet memory 3" class="c3d-img" />
+                </div>
+                <div class="c3d-info">
+                  <span class="c3d-tag">Together</span>
+                  <h4 class="c3d-caption">Little Adventures</h4>
+                  <p class="c3d-date">Anywhere with you feels like home</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="c3d-card" data-index="3">
+              <div class="c3d-frame">
+                <div class="c3d-img-box">
+                  <img src="/images/4.jpg" alt="Our sweet memory 4" class="c3d-img" />
+                </div>
+                <div class="c3d-info">
+                  <span class="c3d-tag">My Favorite View</span>
+                  <h4 class="c3d-caption">Just You &amp; Me</h4>
+                  <p class="c3d-date">Every second cherished forever</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="carousel-nav-btn next" id="carouselNext" aria-label="Next Memory">&#10095;</button>
+        </div>
+
+        <!-- Carousel Pagination Dots -->
+        <div class="carousel-dots" id="carouselDots">
+          <span class="c-dot active" data-index="0"></span>
+          <span class="c-dot" data-index="1"></span>
+          <span class="c-dot" data-index="2"></span>
+          <span class="c-dot" data-index="3"></span>
+        </div>
+
+        <!-- Next to Love Letter button -->
+        <div class="text-center mt-6">
+          <button type="button" class="btn-next-chapter" id="btnToAct7">
+            <span>Open The Love Letter</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 7 — THE FOREVER LOVE LETTER & VOWS --------------------------------- -->
+    <section class="scene-act act7-scene" id="act7Scene" aria-label="Our Forever Love Letter and Vows" hidden>
+      <div class="act7-container">
+        <header class="act7-header">
+          <h2 class="act7-title">My Heart, Sealed For You</h2>
+          <p class="act7-sub">Tap the wax seal to unveil what lies within my soul</p>
+          <img class="letter-gif" src="/gif/msg.gif" alt="A sealed love message" />
+        </header>
+
+        <!-- Interactive Envelope -->
+        <div class="envelope-wrapper" id="envelopeWrapper">
+          <div class="envelope-box" id="envelopeBox">
+            <div class="envelope-flap" id="envelopeFlap"></div>
+            <div class="envelope-seal" id="envelopeSeal" role="button" tabindex="0" aria-label="Tap to open the letter">
+              <span class="seal-heart">&#10084;</span>
+              <span class="seal-ring">&#128141;</span>
+            </div>
+            <div class="envelope-card" id="envelopeCard">
+              <div class="letter-parchment">
+                <div class="letter-header">
+                  <span class="letter-date">For All Eternity &bull; With All My Love</span>
+                  <h3 class="letter-greeting">Dearest Sweety,</h3>
+                </div>
+                <div class="letter-body" id="letterBody">
+                  <p class="letter-line" id="letterTyped"></p>
+                </div>
+
+                <!-- Romantic Vows Tokens (Interactive choices with specific emojis) -->
+                <p class="vows-intro-title">Choose a promise for our forever:</p>
+                <div class="vows-grid" id="vowsGrid">
+                  <button type="button" class="vow-chip" data-vow="close">
+                    <span class="vow-chip__emoji">💕</span>
+                    <span class="vow-chip__text">To Hold You Close</span>
+                    <span class="vow-chip__emoji">💕</span>
+                  </button>
+                  <button type="button" class="vow-chip" data-vow="laugh">
+                    <span class="vow-chip__emoji">🌸</span>
+                    <span class="vow-chip__text">To Laugh Every Day</span>
+                    <span class="vow-chip__emoji">🌸</span>
+                  </button>
+                  <button type="button" class="vow-chip" data-vow="dreams">
+                    <span class="vow-chip__emoji">✨</span>
+                    <span class="vow-chip__text">To Build Our Dreams</span>
+                    <span class="vow-chip__emoji">✨</span>
+                  </button>
+                  <button type="button" class="vow-chip" data-vow="forever">
+                    <span class="vow-chip__emoji">💍</span>
+                    <span class="vow-chip__text">Forever &amp; Always</span>
+                    <span class="vow-chip__emoji">💍</span>
+                  </button>
+                </div>
+                <div class="vow-chosen-box" id="vowChosenBox" hidden>
+                  <div class="vow-chosen-badge" id="vowChosenBadge"></div>
+                  <p class="vow-chosen-text" id="vowChosenText"></p>
+                </div>
+
+                <div class="letter-sign">
+                  <p class="letter-closing">Yours, completely and eternally,</p>
+                  <p class="letter-signature">Your Lifelong Partner &hearts;</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Celebratory Confetti & Replay -->
+        <div class="act7-actions">
+          <button type="button" class="btn-proposal btn-yes" id="btnCelebrateAll">
+            <span class="btn-heart">&#10084;</span> Shower With Love &amp; Fireworks
+          </button>
+          <button type="button" class="btn-restart-journey" id="btnRestartJourney">
+            <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="currentColor">
+              <path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z" />
+            </svg>
+            Relive From The Beginning
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLOATING MUSIC CONTROLLER (Music placeholder for each act) ------------ -->
+    <aside class="music-bar" id="musicBar" aria-label="Background Soundtrack Controller">
+      <div class="music-bar__track">
+        <span class="music-bar__wave" id="musicWave" aria-hidden="true">
+          <i></i><i></i><i></i><i></i>
+        </span>
+        <div class="music-bar__info">
+          <span class="music-bar__label">Soundtrack</span>
+          <span class="music-bar__name" id="musicTrackName">Act I &bull; Cupid's Chord</span>
+        </div>
+      </div>
+
+      <div class="music-bar__controls">
+        <button type="button" class="music-btn" id="musicTogglePlay" aria-label="Play or Pause Music">
+          <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" id="musicPlayIcon">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" id="musicPauseIcon" hidden>
+            <rect x="6" y="4" width="4" height="16"></rect>
+            <rect x="14" y="4" width="4" height="16"></rect>
+          </svg>
+        </button>
+
+        <button type="button" class="music-btn" id="musicToggleMute" aria-label="Mute or Unmute Music">
+          <svg class="icon-volume" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" id="musicVolumeIcon">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <svg class="icon-mute" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" id="musicMuteIcon" hidden>
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Hidden Audio Element with placeholder paths -->
+      <audio id="actAudioPlayer" preload="auto"></audio>
+    </aside>
+
+    <!-- ACTS SITEMAP NAVIGATOR (Unlocked Chapter Navigation) ---------------- -->
+    <nav class="act-nav" id="actNav" aria-label="Story Journey Navigation">
+      <button type="button" class="act-nav__dot active is-unlocked" data-act="1" data-title="Cupid's Bow" title="Cupid's Bow"></button>
+      <button type="button" class="act-nav__dot is-locked" data-act="3" data-title="Be Mine Sweety" title="Locked"></button>
+      <button type="button" class="act-nav__dot is-locked" data-act="4" data-title="Blossom Tree" title="Locked"></button>
+      <button type="button" class="act-nav__dot is-locked" data-act="5" data-title="Will You Marry Me?" title="Locked"></button>
+      <button type="button" class="act-nav__dot is-locked" data-act="6" data-title="Moments That Stole My Heart" title="Locked"></button>
+      <button type="button" class="act-nav__dot is-locked" data-act="7" data-title="Our Love Letter" title="Locked"></button>
+    </nav>
+
+    <!-- One lens over the whole film: vignette + fine grain. -->
+    <div class="grade" aria-hidden="true">
+      <div class="grade__vignette"></div>
+      <div class="grade__grain"></div>
+    </div>
+  </main>
+
+  <p class="sr-only">Will you marry me and be my lifelong partner? Forever starts today, Sweety.</p>
+
+  <script type="module" src="./birthday.js"></script>
+</body>
+</html>
