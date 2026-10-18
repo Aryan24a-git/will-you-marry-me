@@ -25,6 +25,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      pages_ready: ${{ steps.pages-ready.outputs.pages_ready }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -33,15 +35,28 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - uses: actions/configure-pages@v5
+      - id: configure-pages
+        uses: actions/configure-pages@v5
         with:
           enablement: true
-      - uses: actions/upload-pages-artifact@v3
+        continue-on-error: true
+      - id: pages-ready
+        if: always()
+        run: |
+          if [ "${{ steps.configure-pages.outcome }}" = "success" ]; then
+            echo "pages_ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pages_ready=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Skipping Pages deployment because repository Pages could not be configured by this workflow token."
+          fi
+      - if: steps.pages-ready.outputs.pages_ready == 'true'
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
   deploy:
     needs: build
+    if: needs.build.outputs.pages_ready == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
